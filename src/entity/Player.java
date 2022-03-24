@@ -215,6 +215,7 @@ public class Player extends Entity {
         case FALLING:
         switch(gravityController) {
             case 0, 1:
+
                 setVelY(3);
                 gravityController++;
                 break;
