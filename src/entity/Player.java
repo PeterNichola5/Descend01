@@ -1,5 +1,6 @@
 package entity;
 
+import main.Constants;
 import main.GameMotor;
 import main.Input;
 import java.awt.image.BufferedImage;
@@ -38,7 +39,7 @@ public class Player extends Entity {
         rightMovementVel = 0;
         gravityController = 0;
         setHitBox(1, 1, 46, 46);
-        setEntityX(96);
+        setEntityX(Constants.DISPLAY_TILE_SIZE);
         getPlayerImage();
     }
 

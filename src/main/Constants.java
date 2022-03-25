@@ -7,6 +7,8 @@ public class Constants {
     public static final int DISPLAY_TILE_SIZE = (int)(TILE_SCALER * ORIGINAL_TILE_SIZE);
     public static final int TOTAL_SCREEN_COLLUMNS = 26;
     public static final int TOTAL_SCREEN_ROWS = 16;
+    public static final int TOTAL_ROOM_COLLUMNS = 28;
+    public static final int TOTAL_ROOM_ROWS = 18;
     public static final int SCREEN_WIDTH = DISPLAY_TILE_SIZE * TOTAL_SCREEN_COLLUMNS;
     public static final int SCREEN_HEIGHT = DISPLAY_TILE_SIZE *TOTAL_SCREEN_ROWS;
 

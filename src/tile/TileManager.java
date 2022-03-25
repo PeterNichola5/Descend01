@@ -30,7 +30,7 @@ public class TileManager {
 
         this.gM = gM;
         tile = new Tile[10];
-        mapTileNum = new int[Constants.TOTAL_SCREEN_COLLUMNS] [Constants.TOTAL_SCREEN_ROWS];
+        mapTileNum = new int[Constants.TOTAL_ROOM_COLLUMNS] [Constants.TOTAL_ROOM_ROWS];
         getTileImage();
         loadMap("/Res/maps/testMap.txt");
 
@@ -66,7 +66,7 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while(col < Constants.TOTAL_SCREEN_COLLUMNS && row < Constants.TOTAL_SCREEN_ROWS) {
+            while(col < Constants.TOTAL_ROOM_COLLUMNS && row < Constants.TOTAL_ROOM_ROWS) {
 
                 String line = mapReader.readLine();
 
@@ -78,7 +78,7 @@ public class TileManager {
                 // it reaches the final column.                                                        //
                 //*************************************************************************************//
 
-                while(col < Constants.TOTAL_SCREEN_COLLUMNS) {
+                while(col < Constants.TOTAL_ROOM_COLLUMNS) {
 
                     String[] splitCol = line.split(" ");
                     int stringToNum = Integer.parseInt(splitCol[col]);
@@ -88,7 +88,7 @@ public class TileManager {
                 }
 
                 //Goes to the next row once the column is finished and starts the process again at the first column
-                if(col == Constants.TOTAL_SCREEN_COLLUMNS) {
+                if(col == Constants.TOTAL_ROOM_COLLUMNS) {
 
                     col = 0;
                     row++;
@@ -104,18 +104,22 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while(worldCol < Constants.TOTAL_SCREEN_COLLUMNS && worldRow < Constants.TOTAL_SCREEN_ROWS) {
+        while(worldCol < Constants.TOTAL_ROOM_COLLUMNS && worldRow < Constants.TOTAL_ROOM_ROWS) {
 
             int tileNum = mapTileNum[worldCol] [worldRow];
 
             //Determines what part of the world is being drawn
             int worldX = worldCol * Constants.DISPLAY_TILE_SIZE;
             int worldY = worldRow * Constants.DISPLAY_TILE_SIZE;
+
+            int screenX = worldX - Constants.DISPLAY_TILE_SIZE;
+            int screenY = worldY - Constants.DISPLAY_TILE_SIZE;
+
             
-            g2.drawImage(tile[tileNum].getImage(), worldX, worldY, Constants.DISPLAY_TILE_SIZE, Constants.DISPLAY_TILE_SIZE, null);
+            g2.drawImage(tile[tileNum].getImage(), screenX, screenY, Constants.DISPLAY_TILE_SIZE, Constants.DISPLAY_TILE_SIZE, null);
             worldCol++;
 
-            if(worldCol == Constants.TOTAL_SCREEN_COLLUMNS) {
+            if(worldCol == Constants.TOTAL_ROOM_COLLUMNS) {
                 worldCol = 0;
                 worldRow++;
             }
