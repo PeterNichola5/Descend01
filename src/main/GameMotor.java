@@ -34,6 +34,7 @@ public class GameMotor extends JPanel implements Runnable {
 
 
     public GameMotor() {
+        //window settings
         this.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -41,10 +42,8 @@ public class GameMotor extends JPanel implements Runnable {
     }
 
     public void startGameThread(){
-
         gameThread = new Thread(this);
         gameThread.start();
-
     }
 
     @Override
@@ -79,7 +78,7 @@ public class GameMotor extends JPanel implements Runnable {
         g2.setColor(Color.white);
         player.draw(g2);
         g2.dispose();
-        System.out.println(input.getLeftTapped());
+        //System.out.println(input.getLeftTapped());
 
     }
 }
