@@ -35,8 +35,8 @@ public class CollisionEngine {
         if(entity.getXDirection() == HorizontalMotionDirection.LEFT || entity.getXDirection() == HorizontalMotionDirection.DECEL && entity.getVelX() < 0) {
 
             hitBoxLeftCol = (hitBoxLeftX + entity.getVelX())/Constants.DISPLAY_TILE_SIZE;
-            tileChecking1 = gM.tileM.getMapTileNum(hitBoxLeftCol, hitBoxTopRow);
-            tileChecking2 = gM.tileM.getMapTileNum(hitBoxLeftCol, hitBoxBottomRow);
+            tileChecking1 = gM.tileM.getMapTileNum(hitBoxLeftCol + 1, hitBoxTopRow);
+            tileChecking2 = gM.tileM.getMapTileNum(hitBoxLeftCol + 1, hitBoxBottomRow);
 
             if(gM.tileM.getTile(tileChecking1).isCollision() || gM.tileM.getTile(tileChecking2).isCollision()) {
                 entity.setEntityX(entityCenterCol * Constants.DISPLAY_TILE_SIZE);
