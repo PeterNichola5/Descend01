@@ -82,7 +82,7 @@ public class TileManager {
 
                     String[] splitCol = line.split(" ");
                     int stringToNum = Integer.parseInt(splitCol[col]);
-                    mapTileNum[col] [row] = stringToNum;
+                    mapTileNum[col][row] = stringToNum;
                     col++;
 
                 }
