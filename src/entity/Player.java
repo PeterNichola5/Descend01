@@ -9,6 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import static main.Constants.*;
+
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Player extends Entity {
@@ -273,6 +275,8 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2) {
         g2.drawImage(playerImage, getEntityX(), getEntityY(), DISPLAY_TILE_SIZE, DISPLAY_TILE_SIZE, null);
+        g2.setColor(Color.RED);
+        g2.draw(hitBox);
     }
 
 }
