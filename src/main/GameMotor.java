@@ -79,7 +79,6 @@ public class GameMotor extends JPanel implements Runnable {
         player.draw(g2);
         g2.dispose();
         //System.out.println(input.getLeftTapped());
-        System.out.println("hbx = "+collisionEngine.hitBoxLeftCol+" hby = "+collisionEngine.hitBoxBottomRow+" x = "+player.getEntityX()+" y = "+player.getEntityY());
 
     }
 }

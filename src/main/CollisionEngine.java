@@ -77,7 +77,8 @@ public class CollisionEngine {
         hitBoxLeftCol = hitBoxLeftX / Constants.DISPLAY_TILE_SIZE + 1;
         hitBoxRightCol = hitBoxRightX / Constants.DISPLAY_TILE_SIZE + 1;
 
-        if(entity.getYDirection() == VerticalMotionDirection.FALLING ) {
+        switch(entity.getYDirection()) {
+        case FALLING:
             hitBoxBottomRow = (hitBoxBottomY + entity.getVelY())/Constants.DISPLAY_TILE_SIZE + 1;
             tileChecking1 = gM.tileM.getMapTileNum((hitBoxLeftCol), hitBoxBottomRow);
             tileChecking2 = gM.tileM.getMapTileNum(hitBoxRightCol, hitBoxBottomRow);
@@ -86,17 +87,30 @@ public class CollisionEngine {
                 entity.setEntityY(entityCenterRow * Constants.DISPLAY_TILE_SIZE);
                 entity.setYDirection(Entity.VerticalMotionDirection.GROUNDED);
             }
-        }
-        else if(entity.getYDirection() == VerticalMotionDirection.GROUNDED ) {
+            break;
+        case GROUNDED:
             hitBoxBottomRow = (hitBoxBottomY + entity.getVelY())/Constants.DISPLAY_TILE_SIZE + 1;
-            tileChecking1 = gM.tileM.getMapTileNum((hitBoxLeftCol), hitBoxBottomRow);
+            tileChecking1 = gM.tileM.getMapTileNum(hitBoxLeftCol, hitBoxBottomRow);
             tileChecking2 = gM.tileM.getMapTileNum(hitBoxRightCol, hitBoxBottomRow);
 
             if(gM.tileM.getTile(tileChecking1).isCollision() || gM.tileM.getTile(tileChecking2).isCollision()) {
                 entity.setEntityY(entityCenterRow * Constants.DISPLAY_TILE_SIZE);
             } else {
-                entity.setYDirection(Entity.VerticalMotionDirection.FALLING);
+                entity.setYDirection(VerticalMotionDirection.FALLING);
             }
+            break;
+        case JUMPING: 
+            hitBoxTopRow = (hitBoxTopY + entity.getVelY())/Constants.DISPLAY_TILE_SIZE + 1;
+            tileChecking1 = gM.tileM.getMapTileNum(hitBoxLeftCol, hitBoxTopRow);
+            tileChecking2 = gM.tileM.getMapTileNum(hitBoxRightCol, hitBoxTopRow);
+
+            if(gM.tileM.getTile(tileChecking1).isCollision() || gM.tileM.getTile(tileChecking2).isCollision()) {
+                entity.setEntityY(entityCenterRow * Constants.DISPLAY_TILE_SIZE);
+                entity.setYDirection(VerticalMotionDirection.FALLING);
+            }
+            break;
+        default:
+            break;
         }
     }
 }
