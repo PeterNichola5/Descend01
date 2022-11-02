@@ -31,6 +31,16 @@ public class CollisionEngine {
         this.gM = gM;
     }
 
+    public void checkEdge(Entity entity) {
+        if(entity.getVelX() < 0 && entityXCenter < 0) {
+            gM.tileM.swap(HorizontalMotionDirection.LEFT);
+            entity.setEntityX(entity.getEntityX() + (Constants.DISPLAY_TILE_SIZE * Constants.TOTAL_SCREEN_COLLUMNS));
+        } else if(entity.getVelX() > 0 && entityXCenter > Constants.DISPLAY_TILE_SIZE * Constants.TOTAL_SCREEN_COLLUMNS) {
+            gM.tileM.swap(HorizontalMotionDirection.RIGHT);
+            entity.setEntityX(entity.getEntityX() - (Constants.DISPLAY_TILE_SIZE * Constants.TOTAL_SCREEN_COLLUMNS));
+        }
+    }
+
     private void checkh(Entity entity) {
         if(entity.getXDirection() == HorizontalMotionDirection.LEFT || entity.getXDirection() == HorizontalMotionDirection.DECEL && entity.getVelX() < 0) {
 
@@ -73,9 +83,12 @@ public class CollisionEngine {
         entityCenterRow = entityYCenter / Constants.DISPLAY_TILE_SIZE;
 
         checkh(entity);
+        checkEdge(entity);
 
         hitBoxLeftCol = hitBoxLeftX / Constants.DISPLAY_TILE_SIZE + 1;
         hitBoxRightCol = hitBoxRightX / Constants.DISPLAY_TILE_SIZE + 1;
+
+
 
         switch(entity.getYDirection()) {
         case FALLING:
