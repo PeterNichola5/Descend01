@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 
 import javax.imageio.ImageIO;
 
+import entity.Entity.HorizontalMotionDirection;
 import main.Constants;
 import main.GameMotor;
 
@@ -17,6 +18,8 @@ public class TileManager {
     GameMotor gM;
     Tile[] tile;
     int[][] mapTileNum;
+    int currentLayout;
+    String[] layout = {"l1.txt", "start.txt", "r1.txt"};
 
     public int getMapTileNum(int i1, int i2) {
         return mapTileNum[i1][i2]; 
@@ -32,8 +35,27 @@ public class TileManager {
         tile = new Tile[10];
         mapTileNum = new int[Constants.TOTAL_ROOM_COLLUMNS] [Constants.TOTAL_ROOM_ROWS];
         getTileImage();
-        loadMap("/Res/maps/testMap.txt");
+        currentLayout = 1; 
+        loadMap(layout[currentLayout]);
 
+    }
+
+    public void swap(HorizontalMotionDirection direction) {
+        if(direction == HorizontalMotionDirection.LEFT) {
+            try {
+                loadMap(layout[--currentLayout]);
+            } catch(ArrayIndexOutOfBoundsException e) {
+                System.err.println("OUT OF BOUNDS: " + currentLayout);
+            }
+        } else if(direction == HorizontalMotionDirection.RIGHT) {
+            try { 
+                loadMap(layout[++currentLayout]);
+            } catch(ArrayIndexOutOfBoundsException e) {
+                System.err.println("OUT OF BOUNDS: " + currentLayout);
+            }
+        } else {
+            throw new IllegalArgumentException("Ain't no way that was supposed to happen :/");
+        }
     }
 
     public void getTileImage() {
@@ -56,11 +78,11 @@ public class TileManager {
         }
     }
 
-    public void loadMap(String filePath) {
+    public void loadMap(String mapName) {
 
         try {
             //Gets map data
-            InputStream mapInput = getClass().getResourceAsStream(filePath);
+            InputStream mapInput = getClass().getResourceAsStream("/Res/maps/" + mapName);
             BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapInput));
 
             int col = 0;
