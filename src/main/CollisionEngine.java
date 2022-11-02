@@ -34,7 +34,7 @@ public class CollisionEngine {
     private void checkh(Entity entity) {
         if(entity.getXDirection() == HorizontalMotionDirection.LEFT || entity.getXDirection() == HorizontalMotionDirection.DECEL && entity.getVelX() < 0) {
 
-            hitBoxLeftCol = (hitBoxLeftX + entity.getVelX())/Constants.DISPLAY_TILE_SIZE;
+            hitBoxLeftCol = (hitBoxLeftX + entity.getVelX())/Constants.DISPLAY_TILE_SIZE + 1;
             tileChecking1 = gM.tileM.getMapTileNum(hitBoxLeftCol, hitBoxTopRow);
             tileChecking2 = gM.tileM.getMapTileNum(hitBoxLeftCol, hitBoxBottomRow);
 
@@ -44,7 +44,7 @@ public class CollisionEngine {
             }
         } else if(entity.getXDirection() == HorizontalMotionDirection.RIGHT || entity.getXDirection() == HorizontalMotionDirection.DECEL && entity.getVelX() > 0) {
             
-            hitBoxRightCol = (hitBoxRightX + entity.getVelX())/Constants.DISPLAY_TILE_SIZE;
+            hitBoxRightCol = (hitBoxRightX + entity.getVelX())/Constants.DISPLAY_TILE_SIZE + 1;
             tileChecking1 = gM.tileM.getMapTileNum(hitBoxRightCol, hitBoxTopRow);
             tileChecking2 = gM.tileM.getMapTileNum(hitBoxRightCol, hitBoxBottomRow);
 
@@ -57,15 +57,15 @@ public class CollisionEngine {
     }
 
     public void checkTiles(Entity entity) {
-        hitBoxLeftX = entity.getEntityX();
-        hitBoxRightX = entity.getEntityX() + entity.getHitBox().width;
-        hitBoxTopY = entity.getEntityY();
-        hitBoxBottomY = entity.getEntityY() + entity.getHitBox().height;
+        hitBoxLeftX = entity.getEntityX() + entity.getHitBox().x;
+        hitBoxRightX = entity.getEntityX() + entity.getHitBox().x + entity.getHitBox().width;
+        hitBoxTopY = entity.getEntityY() + entity.getHitBox().y;
+        hitBoxBottomY = entity.getEntityY() + entity.getHitBox().y + entity.getHitBox().height;
         
-        hitBoxLeftCol = hitBoxLeftX / Constants.DISPLAY_TILE_SIZE;
-        hitBoxRightCol = hitBoxRightX / Constants.DISPLAY_TILE_SIZE;
-        hitBoxTopRow = hitBoxTopY / Constants.DISPLAY_TILE_SIZE;
-        hitBoxBottomRow = hitBoxBottomY / Constants.DISPLAY_TILE_SIZE;
+        hitBoxLeftCol = hitBoxLeftX / Constants.DISPLAY_TILE_SIZE + 1;
+        hitBoxRightCol = hitBoxRightX / Constants.DISPLAY_TILE_SIZE + 1;
+        hitBoxTopRow = hitBoxTopY / Constants.DISPLAY_TILE_SIZE + 1;
+        hitBoxBottomRow = hitBoxBottomY / Constants.DISPLAY_TILE_SIZE + 1;
 
         entityXCenter = hitBoxLeftX + entity.getHitBox().width/2;
         entityYCenter = hitBoxTopY + entity.getHitBox().height/2;
@@ -74,11 +74,11 @@ public class CollisionEngine {
 
         checkh(entity);
 
-        hitBoxLeftCol = hitBoxLeftX / Constants.DISPLAY_TILE_SIZE;
-        hitBoxRightCol = hitBoxRightX / Constants.DISPLAY_TILE_SIZE;
+        hitBoxLeftCol = hitBoxLeftX / Constants.DISPLAY_TILE_SIZE + 1;
+        hitBoxRightCol = hitBoxRightX / Constants.DISPLAY_TILE_SIZE + 1;
 
         if(entity.getYDirection() == VerticalMotionDirection.FALLING ) {
-            hitBoxBottomRow = (hitBoxBottomY + entity.getVelY() + 2)/Constants.DISPLAY_TILE_SIZE;
+            hitBoxBottomRow = (hitBoxBottomY + entity.getVelY())/Constants.DISPLAY_TILE_SIZE + 1;
             tileChecking1 = gM.tileM.getMapTileNum((hitBoxLeftCol), hitBoxBottomRow);
             tileChecking2 = gM.tileM.getMapTileNum(hitBoxRightCol, hitBoxBottomRow);
 
@@ -88,7 +88,7 @@ public class CollisionEngine {
             }
         }
         else if(entity.getYDirection() == VerticalMotionDirection.GROUNDED ) {
-            hitBoxBottomRow = (hitBoxBottomY + entity.getVelY() + 2)/Constants.DISPLAY_TILE_SIZE;
+            hitBoxBottomRow = (hitBoxBottomY + entity.getVelY())/Constants.DISPLAY_TILE_SIZE + 1;
             tileChecking1 = gM.tileM.getMapTileNum((hitBoxLeftCol), hitBoxBottomRow);
             tileChecking2 = gM.tileM.getMapTileNum(hitBoxRightCol, hitBoxBottomRow);
 

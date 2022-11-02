@@ -69,6 +69,7 @@ public class TileManager {
             while(col < Constants.TOTAL_ROOM_COLLUMNS && row < Constants.TOTAL_ROOM_ROWS) {
 
                 String line = mapReader.readLine();
+                String[] splitCol = line.split(" ");
 
                 //*************************************************************************************//
                 // This section takes the map data form the "line" string.  It then splits the string  //
@@ -80,9 +81,9 @@ public class TileManager {
 
                 while(col < Constants.TOTAL_ROOM_COLLUMNS) {
 
-                    String[] splitCol = line.split(" ");
+                    
                     int stringToNum = Integer.parseInt(splitCol[col]);
-                    mapTileNum[col] [row] = stringToNum;
+                    mapTileNum[col][row] = stringToNum;
                     col++;
 
                 }
