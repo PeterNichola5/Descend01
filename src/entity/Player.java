@@ -14,9 +14,10 @@ import java.awt.Graphics2D;
 
 public class Player extends Entity {
 
+    // Initialization
+
     Input input;
     GameMotor gM;
-
     BufferedImage playerImage;
 
     int leftMovementVel;
@@ -33,14 +34,21 @@ public class Player extends Entity {
         this.input = input;
         this.gM = gM;
 
+        // Starts off with no vertical or horizontal velocity
         yDirection = VerticalMotionDirection.GROUNDED;
         xDirection = HorizontalMotionDirection.STILL;
 
         leftMovementVel = 0;
         rightMovementVel = 0;
         gravityController = 0;
+
+        // Defines a hit box that is one pixel smaller than the player
+        // This is to avoid collision bugs when the tile-sized player is perfectly aligned with a tile
         setHitBox(1, 1, 46, 46);
+
+        // Initial starting position is at the top left of the screen
         setEntityX(Constants.DISPLAY_TILE_SIZE);
+
         getPlayerImage();
     }
 
@@ -56,7 +64,7 @@ public class Player extends Entity {
        
         if(input.isLeftPressed() && input.isRightPressed() || !input.isLeftPressed() && !input.isRightPressed()) {
             if(velX != 0) {
-                xDirection = HorizontalMotionDirection.DECEL;
+                xDirection = HorizontalMotionDirection.SLOW;
             } else {
                 xDirection = HorizontalMotionDirection.STILL;
             } 
@@ -96,7 +104,7 @@ public class Player extends Entity {
 
     public void initiateHMovement() {
 
-        if(xDirection == HorizontalMotionDirection.DECEL) {
+        if(xDirection == HorizontalMotionDirection.SLOW) {
            playerMovementIfDecel();
         }
         else if(xDirection != HorizontalMotionDirection.RIGHT && rightMovementVel > 0) {
@@ -154,7 +162,8 @@ public class Player extends Entity {
             setVelY(-16);
             jumpPhase++;
             break;
-        case 1, 2:
+        case 1:
+        case 2:
             if (jumpSequence < 4 && jumpSequence > 0) {
                 setVelY(-10);
                 jumpSequence++;
@@ -216,12 +225,14 @@ public class Player extends Entity {
         switch(yDirection) {
         case FALLING:
         switch(gravityController) {
-            case 0, 1:
+            case 0:
+            case 1:
 
                 setVelY(3);
                 gravityController++;
                 break;
-            case 2, 3:
+            case 2:
+            case 3:
                 setVelY(5);
                 gravityController++;
                 break;

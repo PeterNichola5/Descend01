@@ -3,13 +3,18 @@ import java.awt.Rectangle;
 
 public class Entity {
 
+    // Enums for horizontal and vertical motion direction
+    // These will be used to establish how the entity should move
+
     public enum HorizontalMotionDirection {
-        LEFT, RIGHT, DECEL, STILL;
+        LEFT, RIGHT, SLOW, STILL;
     }
 
     public enum VerticalMotionDirection {
         JUMPING, GROUNDED, FALLING;
     }
+
+    // Initializing
     
     Rectangle hitBox  = new Rectangle();
     HorizontalMotionDirection xDirection;
@@ -25,6 +30,8 @@ public class Entity {
     boolean verticalCollision = false;
 
 
+    // Getters and Setters
+    
     public boolean isHorizontalCollision() {
         return horizontalCollision;
     }
